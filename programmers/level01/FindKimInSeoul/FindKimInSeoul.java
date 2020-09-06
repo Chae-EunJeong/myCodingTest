@@ -13,6 +13,7 @@ class FindKimInSeoul {
     public static void main(String[] args) {
         FindKimInSeoul findKim = new FindKimInSeoul();
         String[] test = {"Jane", "Kim"};
-        
+        String whereIsKim = findKim.findKimInSeoul(test);
+        System.out.println(whereIsKim);
     }
 }
