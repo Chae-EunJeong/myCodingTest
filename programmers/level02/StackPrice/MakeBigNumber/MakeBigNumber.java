@@ -11,8 +11,13 @@
     문자열의 원소를 합친 것 끼리의 크기를 비교해서 내림차순으로 정렬
     반환한 문자열에 정렬된 문자열 원소들을 합치기
     입력된 배열의 모든 원소값이 0일 때는 "00000"이 아니라 "0"이 반환되도록 함
-- 사용한 메소드 : compareTo()
-
+- 사용한 메서드 : compareTo()
+    (o1+o2).compareTo(o2+o1)으로 하면 오름차순 정렬
+    (o2+o1).compareTo(o1+o2)으로 하면 내림차순 정렬
+- 정렬 조건을 달리 하려면 sort 메서드 호출시 구현한 조건을 명시
+    정렬 기준을 compareTo()로 재정의하여 내림차순으로 정렬해주었음
+- 문자열 비교 == vs equals()
+    문자열 비교에는 ==를 이용하면 안됨. equals() 메소드를 이용하자!
 */
 
 package programmers.level02.StackPrice.MakeBigNumber;
