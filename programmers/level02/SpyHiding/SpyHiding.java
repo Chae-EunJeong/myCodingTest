@@ -1,4 +1,3 @@
-package programmers.level02.StackPrice.SpyHiding;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
