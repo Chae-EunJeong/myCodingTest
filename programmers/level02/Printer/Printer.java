@@ -24,8 +24,9 @@
         location이 0이 아니면
             location -= 1
 - 다른 풀이
-
-    
+    - Queue<Integer> que = new LinkedList<Integer>();
+        - 배열을 queue에 넣고 원래 배열을 정렬해서 비교! 신박하네
+    - 계속 list의 0번째를 비교했던 것 대신 isEmpty()를 사용할 수 있음
 */
 
 package programmers.level02.Printer;
