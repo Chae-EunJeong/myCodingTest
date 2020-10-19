@@ -14,11 +14,34 @@
 */
 
 public class TargetNumber {
-    public int targetNumber(int[] numbers, int target) {
+    public int dfs(int current, int index, int[] numbers, int target) {
+        if(index >= numbers.length){
+            if(current == target)
+                return 1;
+            else 
+                return 0;
+        }
+        int ans = 0; 
+        ans += dfs(current + numbers[index], index + 1, numbers, target);
+        ans += dfs(current - numbers[index], index + 1, numbers, target);  
+        
+        return ans;
+    }
 
+    public int targetNumber(int[] numbers, int target) {
+        int answer = 0;
+        answer += dfs(numbers[0], 1, numbers, target);
+        answer += dfs(-numbers[0], 1, numbers, target);
+        return answer;
     }
 
     public static void main(String[] args) {
-        
+        TargetNumber tn = new TargetNumber();
+        int[] numbers = {1, 1, 1, 1, 1};
+        int target = 3;
+        int answer = 0;
+        answer = tn.targetNumber(numbers, target);
+        System.out.println(answer);
+
     }
 }
