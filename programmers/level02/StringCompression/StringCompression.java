@@ -16,7 +16,26 @@
 */
 public class StringCompression {
     public String stringCompression(int n) {
+        int answer = 0;
+        int count = 1;
+        StringBuilder compareStr = new StringBuilder();
         
+        for(int i = 0; i < s.length()-1; i++){
+            if(s.substring(i, i+1).equals(s.substring(i+1, i+2)))
+                count += 1;
+            else
+                if(count==1){
+                    compareStr.append(s.substring(i, i+1));
+                }
+                else{
+                    compareStr.append(Integer.toString(count));
+                    compareStr.append(s.substring(i, i+1));
+                }     
+        }
+        System.out.println(compareStr);
+            
+        
+        return answer;
     }
 
     public static void main(String[] args) {
