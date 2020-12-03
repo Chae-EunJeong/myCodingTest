@@ -14,8 +14,22 @@
 public class Network {
     public int network(int n, int[][] computers) {
         int answer = 0;
-
-        return answer;
+        int row = computers.length;
+        int col = computers[0].length;
+        int networks = computers.length;
+        
+        for(int i = 0; i < row-1; i++) {
+                if(computers[i][i+1] == 1){
+                    if(i > 0){
+                        if(computers[i-1][i] == 1 && computers[i-1][i+1] == 1)
+                            continue;
+                        i--;
+                    }                
+                    networks -= 1;
+                } 
+        }
+        
+        return networks;
     }
     public static void main(String[] args) {
         Network n1 = new Network();
