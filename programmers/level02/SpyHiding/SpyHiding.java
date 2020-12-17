@@ -1,3 +1,5 @@
+package programmers.level02.SpyHiding;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
