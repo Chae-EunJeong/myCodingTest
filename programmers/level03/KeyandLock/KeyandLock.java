@@ -1,6 +1,7 @@
 package programmers.level03.KeyandLock;
 
 public class KeyandLock {
+    /* make key array to right turn */
     public int[][] rightTurnKey(int[][] key) {
         int len = key.length;
         int[][] turnedKey = new int[len][len];
@@ -13,6 +14,7 @@ public class KeyandLock {
         return turnedKey;
     }
 
+    /* printing two dimensional array */
     public void printTwoDimensionalArray(int[][] tdarr) {
         for(int i = 0; i < tdarr.length; i++) {
             for (int j = 0; j < tdarr.length; j++) {
