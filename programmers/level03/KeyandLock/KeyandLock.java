@@ -1,3 +1,19 @@
+/* 
+- 요구사항 : N X N 크기의 정사각 격자 자물쇠를 M X M 크기의 정사각 격자 열쇠로 열 수 있는지의 여부를 판단하라.
+- 함수
+    - input : 이차원 배열 key와 lock (int[][])
+    - constraints : 3 <= N, M <= 20
+                    M은 항상 N 이하
+    - output : 열 수 있는지 여부. boolean
+- 손코딩
+    
+- 이차원 배열 얕은 복사와 깊은 복사
+    두 개의 이차원 배열 A와 B가 있을 때    
+    - 그냥 A = B 하면 얕은 복사. 서로 같은 주소를 가리켜서 A의 원소를 바꾸면 B의 원소도 바뀜
+    - 깊은 복사 : 이중 for문으로 하나하나 원소를 대입(A[i][j] = B[i][j])하거나,
+                행을 기준으로 system.ArrayCopy(A[i],0,B[i],0,len) 해주면 깊은 복사가 되어 같은 값을 가지는 독립적인 배열이 됨       
+*/
+
 package programmers.level03.KeyandLock;
 
 public class KeyandLock {
