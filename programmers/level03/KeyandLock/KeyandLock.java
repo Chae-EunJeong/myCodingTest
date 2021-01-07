@@ -1,6 +1,20 @@
 package programmers.level03.KeyandLock;
 
 public class KeyandLock {
+    /* check every chances to open using functions */
+    public boolean checkEveryChances(int[][] key, int[][] lock) {
+        boolean check = false;
+        for (int i = 0; i < 4; i++) {
+            check = openLockWithKey(key, lock);
+            if (check) {
+                break;
+            }
+            key = rightTurnKey(key);
+            printTwoDimensionalArray(key);
+        }
+        return check;
+    }
+
     /* make key array to right turn */
     public int[][] rightTurnKey(int[][] key) {
         int len = key.length;
@@ -31,19 +45,33 @@ public class KeyandLock {
         return zeroPaddingArray;
     }
 
-    public int[][] openLockWithKey(int[][] key, int[][] lock) {
-        int n = lock.length;
+    /* add key to the padding lock array */
+    public boolean openLockWithKey(int[][] key, int[][] lock) {
+        int[][] paddingLockArr = paddingLockArray(lock);
+        int n = paddingLockArr.length;
         int m = key.length;
         int[][] lockKeyArray = new int[n][n];
-        lockKeyArray = lock;
+        lockKeyArray = copyTwoDimensionalArray(paddingLockArr);
+        boolean check = false;
 
-        for (int i = 0; i < 2*n - 2; i++) {
-            for (int j = 0; j < m; j++) {
-                
+        for (int i = 0; i < 2*m - 1; i++) {
+            for (int j = 0; j < 2*m - 1; j++) {
+                for (int k = 0; k < m; k++) {
+                    for(int l = 0; l < m; l++) {
+                        lockKeyArray[i+k][j+l] += key[k][l];
+                    }
+                }
+                printTwoDimensionalArray(lockKeyArray);
+                System.out.println();
+                check = isLockOpenOrNot(lock, lockKeyArray);
+                if (check) {
+                    return check;
+                }
+                lockKeyArray = copyTwoDimensionalArray(paddingLockArr);
             }
         }
 
-        return lockKeyArray;
+        return check;
     }
 
     /* check all element is 1 in origin part of lock array */
@@ -52,7 +80,7 @@ public class KeyandLock {
         int n = lock.length;
 
         for (int i = n-1; i <= 2*n-2; i++) {
-            for (int j = n-1; j < 2*n-2; j++) {
+            for (int j = n-1; j <= 2*n-2; j++) {
                 if (lockKeyArray[i][j] != 1) {
                     check = false;
                 }
@@ -72,6 +100,16 @@ public class KeyandLock {
         }
     }
 
+    /* deep copy two dimensional array - using arraycopy for not using for loop twice */
+    public int[][] copyTwoDimensionalArray(int[][] tdarr) {
+        int len = tdarr.length;
+        int[][] copyArray = new int[len][len];
+        for(int i = 0; i < len; i++) {
+            System.arraycopy(tdarr[i], 0, copyArray[i], 0, len);
+        }
+        return copyArray;
+    }
+
     public static void main(String[] args) {
         KeyandLock kl = new KeyandLock();
         int[][] key = { {0,0,0},
@@ -80,11 +118,6 @@ public class KeyandLock {
         int[][] lock = {{1,1,1},
                         {1,1,0},
                         {1,0,1}};
-        int[][] turnedKey = new int[key.length][key.length];
-        turnedKey = kl.rightTurnKey(key);
-        kl.printTwoDimensionalArray(turnedKey);
-        int[][] test = kl.paddingLockArray(lock);
-        System.out.println(kl.isLockOpenOrNot(lock, kl.openLockWithKey(turnedKey, test)));
-        
+        System.out.println(kl.checkEveryChances(key, lock));
     }
 }
