@@ -1,3 +1,5 @@
+package programmers.level02.TargetNumber;
+
 /*
 - 요구사항 : 입력된 자연수로 이루어진 배열의 숫자들을 적절히 빼고 더해서, 
             타겟 넘버를 만들 수 있는 방법의 수를 반환해라.

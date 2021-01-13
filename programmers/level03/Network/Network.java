@@ -1,3 +1,5 @@
+package programmers.level03.Network;
+
 /*
 - 요구사항 : 컴퓨터들의 연결 정보를 가지고 존재하는 네트워크의 개수를 반환해라.
 - 함수
