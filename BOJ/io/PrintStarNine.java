@@ -17,18 +17,19 @@ public class PrintStarNine {
         int n = Integer.parseInt(br.readLine());
         int line = 2 * n - 1;
 
-        for(int i = 0; i <= line; i++) {
+        for(int i = 1; i <= line; i++) {
             if(i <= n) {
-                sb.append(" ".repeat(i));
-                sb.append("*".repeat(2*(n-i)-1));
+                sb.append(" ".repeat(i-1));
+                sb.append("*".repeat(2*(n-i)+1));
                 sb.append("\n");
             }
             else {
-                sb.append(" ".repeat(line-i-1));
-                sb.append("*".repeat(2*(i-n+2)-1));
+                sb.append(" ".repeat(line-i));
+                sb.append("*".repeat(2*(i-n+1)-1));
                 sb.append("\n");
             }
         }
         System.out.print(sb);
+        br.close();
     }
 }
