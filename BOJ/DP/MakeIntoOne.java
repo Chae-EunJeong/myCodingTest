@@ -8,7 +8,7 @@
     - restriction : 1 <= N <= 10^6
                     N은 자연수
     - output : 연산 횟수의 최솟값
-- Dynamic Programming(DP) : 모든 방법을 검토하여 최적의 해를 구함. 이미 계산된 연산은 재귀 호출 하지 않고 바로 값을 받음.
+- Dynamic Programming(DP) : issue#7에 정리
 
 */
 
