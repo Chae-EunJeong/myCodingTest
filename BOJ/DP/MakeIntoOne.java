@@ -9,7 +9,13 @@
                     N은 자연수
     - output : 연산 횟수의 최솟값
 - Dynamic Programming(DP) : issue#7에 정리
-
+- 점화식 : f(N) = min(f(N-1),f(N/2),f(N/3))+1
+- Bottom-up 방식
+    - N을 1로 만드는 최소 횟수는 N-1 || N/2 || N/3을 1로 만드는 최소 횟수 + 1이다.
+    - 저 셋 중 제일 작은 것 + 1이 N을 1로 만드는 최소 횟수
+- Recursive 방식
+    - Math.min(recur(N / 2, count + 1 + (N % 2)), recur(N / 3, count + 1 + (N % 3)))
+    - 나머지 값은 -1했을 때의 count 값과 같다.
 */
 
 package BOJ.DP;
@@ -17,7 +23,6 @@ package BOJ.DP;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class MakeIntoOne {
     public static void main(String[] args) throws IOException {
@@ -25,10 +30,21 @@ public class MakeIntoOne {
         //int n = sc.nextInt();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
+        int[] dp =new int[n+1];
+        dp[0] = dp[1] = 0;
+        
 
-        for(int i = 1; i <= n; i++) {
-            System.out.println(i); 
+        for(int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + 1;
+            if(i % 2 == 0) {
+                dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+            }
+            if(i % 3 == 0) {
+                dp[i] = Math.min(dp[i], dp[i / 3] + 1);
+            }
         }
 
+        System.out.println(dp[n]); 
+        br.close();
     }
 }
