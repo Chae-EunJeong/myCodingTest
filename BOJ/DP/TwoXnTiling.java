@@ -29,5 +29,4 @@ public class TwoXnTiling {
         }
         System.out.println(dp[n]);
     }
-
 }
