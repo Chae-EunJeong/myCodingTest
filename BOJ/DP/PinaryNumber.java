@@ -37,7 +37,7 @@ public class PinaryNumber {
         }
         
         System.out.println(dp[n][0] + dp[n][1]);*/
-        long dp[] = new long[91];
+        long dp[] = new long[n+1];
         dp[1] = dp[2] = 1;
         for(int i = 3; i <= n; i++) {
             dp[i] = dp[i-1] + dp[i-2];
