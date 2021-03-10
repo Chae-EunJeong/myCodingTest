@@ -7,7 +7,11 @@
                     N은 자연수
     - output : t개의 스티커 점수 최댓값
 - 점화식 
-    -
+  - 스티커의 변을 공유하는 바로 아래/위나 양옆은 뗄 수 없으므로, 대각선이나 대각선의 왼쪽과 고려해야한다.
+  - (b)에서 예를들어 100을 떼려고 할 때는 왼쪽 대각선 아래의 50이나 왼쪽 대각선 아래의 왼쪽의 30 중 더 큰 점수를 얻을 수 있는 것을 뗀다.
+  - 그게 한 스티커에서 떼어낼 수 있는 최대 경우의 수이다.
+    - dp[0][k] = Math.max(dp[1][k-1] + arr[0][k], dp[1][k-2] + arr[0][k])
+    - dp[1][k] = Math.max(dp[0][k-1] + arr[1][k], dp[0][k-2] + arr[1][k])
 */
 
 package BOJ.DP;
@@ -36,7 +40,18 @@ public class Sticker {
                     arr_n[j][k] = Integer.parseInt(row[k]);
                 }
             }
-        }
+            dp[0][0] = arr_n[0][0];
+            dp[1][0] = arr_n[1][0];
+            dp[0][1] = arr_n[0][1] + dp[1][0];
+            dp[1][1] = arr_n[1][1] + dp[0][0];
 
+            for(int k = 2; k <= n; k++) {
+                dp[0][k] = Math.max(dp[1][k-2], dp[1][k-1]) + arr_n[0][k];
+                dp[1][k] = Math.max(dp[0][k-2], dp[0][k-1]) + arr_n[1][k];
+            }
+
+            System.out.println(Math.max(dp[0][n], dp[1][n]));
+        }
+        br.close();
     }
 }
