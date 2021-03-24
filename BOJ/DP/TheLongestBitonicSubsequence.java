@@ -9,6 +9,12 @@
                     1 <= 각 원소 <= 1,000
     - output : 주어진 수열에서 가장 긴 바이토닉 부분 수열의 길이 출력
 - 점화식 
+    - 증가수열을 계산한 tempA
+        - if(arr[j] < arr[i] && tempA[i] <= tempA[j]) 
+    - 감소수열을 계산한 tempB
+        - if(arr[j] < arr[i] && tempB[i] <= tempB[j])
+    - 합한 dp
+        - dp[i] = dp[i] + tempA[i] + tempB[i];
 */
 package BOJ.DP;
 import java.io.BufferedReader;
