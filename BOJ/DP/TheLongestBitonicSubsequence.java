@@ -16,7 +16,7 @@
     - 합한 dp
         - dp[i] = dp[i] + tempA[i] + tempB[i];
 */
-package BOJ.DP;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
