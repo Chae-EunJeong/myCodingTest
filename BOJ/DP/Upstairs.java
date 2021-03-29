@@ -12,6 +12,7 @@
     - output : 계단 오르기 게임에서 얻을 수 있는 총 점수의 최댓값 출력
 - 점화식 
 */
+package BOJ.DP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
