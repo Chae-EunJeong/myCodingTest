@@ -11,6 +11,9 @@
                     1 <= 점수 <= 10,000
     - output : 계단 오르기 게임에서 얻을 수 있는 총 점수의 최댓값 출력
 - 점화식 
+    - 마지막 계단을 반드시 밟아야하므로 OOX의 경우는 제외해야한다.
+    - 앞앞의 계단은 밟지 않고 바로 앞 계단을 밟았을 때(XOO) : dp[i-3] + arr[i-1] + arr[i]
+    - 앞앞의 계단을 밟고 바로 앞 계단을 밟지 않았을 때(OXO) : dp[i-2] + arr[i]
 */
 package BOJ.DP;
 
@@ -27,8 +30,20 @@ public class Upstairs {
 
         for(int i = 1; i <= n; i++) {
             arr[i] = Integer.parseInt(br.readLine());
-            
         }
+        dp[0] = 0;
+        dp[1] = arr[1];
+        //n이 1보다 크지 않은데 dp[2]에 값을 저장하면 런타임에러
+        if(n > 1) {
+            dp[2] = arr[1] + arr[2];
+        }
+        //i-2를 마시지 않는 경우와, i-1을 마시지 않는 경우 
+        for(int i = 3; i <= n; i++) {
+            dp[i] = Math.max(dp[i-3] + arr[i-1] + arr[i], dp[i-2] + arr[i]);
+        }
+
+        System.out.println(dp[n]);
+
         br.close();
     }
 }
