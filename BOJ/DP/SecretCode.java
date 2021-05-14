@@ -23,14 +23,10 @@ public class SecretCode {
             code = (input.charAt(i-1) - '0') * 10 + input.charAt(i) - '0';
 
             if (code > 26 && input.charAt(i) == '0') {
-                System.out.println(0);
-                return ;
-            }
-            if(code >= 10 && code <= 26) {
-                dp[i+1] = (dp[i] + dp[i-1]) % 1000000;
-            }
-            else {
                 dp[i+1] = dp[i] % 1000000;
+            }
+            if(code >= 11 && code <= 26 ) {
+                dp[i+1] = (dp[i] + dp[i-1]) % 1000000;
             }
         }
             
