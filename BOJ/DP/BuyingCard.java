@@ -7,10 +7,11 @@
           1 <= Pi <= 10,000
   - 출력 : 카드 N개를 갖기 위해 지불해야하는 최대 금액
 - 점화식
-  - 
+  - dp[4]는 p[4], dp[3] + p[1], dp[2] + p[2], dp[3] + p[1] 중에 최댓값
+  - dp[i] = dp[i - j] + p[j]
 */
 
-package BOJ.DP;
+//package BOJ.DP;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,25 +23,18 @@ public class BuyingCard {
         String[] ps = br.readLine().split(" ");
         int[] p_arr = new int[n+1];
         int[] dp = new int[n+1];
-        int max = 1;
 
         for(int i = 0; i < n; i++) {
             p_arr[i+1] = Integer.parseInt(ps[i]);
         }
 
-
         for(int i = 1; i <= n; i++) {
-            if ((i%n) != 0) {
-                dp[i] = (n/i) * p_arr[i] + p_arr[n%i];
+            for(int j = 1; j <= i; j++) {
+                if(dp[i] <= dp[i-j] + p_arr[j]) {
+                    dp[i] = dp[i-j] + p_arr[j];
+                }
             }
-            else {
-                dp[i] = (i/n) * p_arr[i];
-            }
-
-            if(max <= dp[i]) {
-                max = dp[i];
-            } 
         }
-        System.out.println(max);
+        System.out.println(dp[n]);
     }
 }
