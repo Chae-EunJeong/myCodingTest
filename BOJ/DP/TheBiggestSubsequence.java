@@ -12,7 +12,7 @@
     조건에 맞으면 dp[i]는 dp[j] + arr[i]
 */
 
-package BOJ.DP;
+//package BOJ.DP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
