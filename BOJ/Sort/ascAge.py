@@ -26,3 +26,9 @@ members = []
 for i in range(n):
     age, name = map(str, sys.stdin.readline().split())
     age = int(age)
+    members.append((age, name))
+
+members.sort(key = lambda member : (member[0]))
+
+for member in members:
+    print(member[0], member[1])
