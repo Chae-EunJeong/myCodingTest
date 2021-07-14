@@ -10,7 +10,7 @@
     곱해진 수의 길이만큼 0부터 9까지의 인덱스에 집어넣는다.
     0부터 9까지 저장된 각각의 숫자를 엔터를 기준으로 출력한다.
 - 다른 방법
-    - String으로 받아 charAt 이용해보기
+    - String으로 받아 charAt 이용해보기 (charAt(i) - '0')
 */
 import java.util.Scanner;
 public class CountNumber {
