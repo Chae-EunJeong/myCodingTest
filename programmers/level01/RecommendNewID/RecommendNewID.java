@@ -22,11 +22,23 @@
 public class RecommendNewID {
     public static String recommendNewId(String new_id) {
         String answer = new_id;
-        return answer;
+        String convertedId = "";
+        int tmp;
+
+        for(int i = 0; i < answer.length(); i++) {
+            // 1단계: 대문자를 소문자로 치환하기
+            tmp = (int)answer.charAt(i);
+            if((65 <= tmp) && (tmp <= 90)) {
+                convertedId += (char)(tmp + 32);
+            } else {
+                convertedId += (char)tmp;
+            }
+        }
+        return convertedId;
     }
     public static void main(String[] args) {
         RecommendNewID rnid = new RecommendNewID();
-        String as = rnid.recommendNewId("test");
+        String as = rnid.recommendNewId("sdkfjWErwhABCD");
         System.out.println(as);
     }
 }
