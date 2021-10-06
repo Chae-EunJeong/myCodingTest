@@ -1,0 +1,138 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+/**
+ * 요구사항 : 가로 또는 세로 방향으로 건설할 수 있는 활주로의 경우의 수를 구해라.
+ * - 활주로는 높이가 동일한 구간에 건설 가능
+ * - 높이가 다르다면 경사로를 설치해야 활주로 건설 가능
+ * 		- 경사로 조건 : 경사로는 높이 차이가 1 이고 낮은 지형의 높이가 동일하게 경사로의 길이만큼 연속되는 곳에 설치
+ * 
+ * 입력 : 총 테케 수 T
+ * 		각 테케 ~ 지도의 한 변의 크기 N, 경사로의 길이 X
+ * 				N개 줄 ~ N*N 크기의 지형 정보
+ * 제약 : 6 <= N <= 20
+ * 		2 <= X <= 4
+ * 		경사로의 높이는 항상 1
+ * 		1 <= 지형의 높이 <= 6
+ * 		동일한 셀에 두 개 이상의 경사로 겹칠 수 없음
+ * 출력 : 각 테케 별 활주로를 건설할 수 있는 경우의 수
+ * 
+ * 리팩토링 어떻게 해야하나 ...
+ * 
+ * @author chaeu
+ *
+ */
+public class SWEA_4014_활주로건설 {
+	static int N, X, ans;
+	static int[][] map;
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());	// 총 테케 수
+		for (int t = 1; t <= T; t++) {
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			N = Integer.parseInt(st.nextToken());	// 지도 한 변의 크기
+			X = Integer.parseInt(st.nextToken());	// 경사로 길이
+			ans = 0;
+			map = new int[N][N];
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine(), " ");
+				for (int j = 0; j < N; j++) {
+					map[i][j] = Integer.parseInt(st.nextToken());
+				}
+			} // 입력 받기 완료
+			
+			for (int i = 0; i < N; i++) {
+				// 행 체크
+				RowCheck(i);
+				// 열 체크
+				ColCheck(i);
+			}
+			
+			System.out.println("#" + t + " " + ans);
+		}
+		
+	}
+	// 열 체크
+	private static void ColCheck(int i) {
+		int h = map[0][i]; 	// 열의 첫번째 원소 높이 정보 저장
+		int hCnt = 1;		// 같은 높이가 몇 번 오는지 세기 위한 변수 생성
+		int successCnt = 1;	// 총 N개가 될 때까지 진행이 되면 경우의 수 추가하기 위한 변수
+		for (int j = 1; j < N; j++) {	// 두번째 부터 N번째 까지 체크
+			if (h == map[j][i]) {	// 1) 이전 요소와 높이가 같을 때
+				hCnt++;	// 같은 높이가 연속으로 온거 체크
+				successCnt++;	// 활주로를 현재 요소까지 문제없이 건설 가능하기에 1 증가
+				continue;	// 다음 요소 탐색
+			}
+			// 2) 이전 요소와 높이 차이가 2이상이면 활주로 건설 불가능
+			if (Math.abs(h - map[j][i]) > 1) break;		
+			if (h - map[j][i] == -1) {	// 3) 이전 요소보다 높이가 1 클 때
+				if (hCnt >= X) {	// 경사로 설치 가능하다면
+					h = map[j][i];	// 탐색하는 높이 정보를 현재 요소로 바꿔주기
+					hCnt = 1;		// 지금 높이는 첫번째 온 것이므로 1로 바꾸기
+					successCnt++;	// 활주로를 현재 요소까지 문제없이 건설 가능하기에 1 증가
+					continue;		// 다음 요소 탐색
+				} else break;	// 경사로 설치 불가능하면 활주로 설치 불가
+			}
+			if (h - map[j][i] == 1) {	// 4) 이전 요소보다 높이가 1 작을 때
+				h = map[j][i];	// 탐색하는 높이 정보를 현재 요소로 바꿔주기
+				hCnt = 1;		// 지금 높이는 첫번째 온 것이므로 1로 바꾸기
+				successCnt++;	// 활주로를 현재 요소까지 문제없이 건설 가능하기에 1 증가
+				for (int k = 0; k < X - 1; k++) {	// 지금 높이가 연속으로 X개가 되는지 체크
+					if (++j < N && h == map[j][i]) {	// 요소 순번이 N번 이내이고, 높이가 같을 때
+						hCnt++;			// 같은 높이가 연속으로 온거 체크
+						successCnt++;	// 활주로를 현재 요소까지 문제없이 건설 가능하기에 1 증가
+					} else {
+						successCnt--;	// 활주로 건설 불가능 하므로 X개 체크하기 전 증가해줬던 가능성 다시 감소시키기
+						break;
+					}
+				}
+				hCnt = 0;	// X개 됐으면, 동일한 셀에 두 개 이상의 경사로 겹치지 않도록 경사로 설치 가능한 셀 0으로 초기화
+			}
+		}
+		if (successCnt == N) {	// 활주로를 문제없이 건설 가능한 요소 수가 N개이면 가로 또는 세로 방향으로 활주로 건설 가능
+			ans++;
+		}
+	}
+	// 행 체크	(열체크와 주석 정보 동일하므로 생략)
+	private static void RowCheck(int i) {
+		int h = map[i][0]; 
+		int hCnt = 1;
+		int successCnt = 1;
+		for (int j = 1; j < N; j++) {
+			if (h == map[i][j]) {
+				hCnt++;
+				successCnt++;
+				continue;
+			}
+			if (Math.abs(h - map[i][j]) > 1) break;
+			if (h - map[i][j] == -1) {
+				if (hCnt >= X) {
+					h = map[i][j];
+					hCnt = 1;
+					successCnt++;
+					continue;
+				} else break;
+			}
+			if (h - map[i][j] == 1) {
+				h = map[i][j];
+				hCnt = 1;
+				successCnt++;
+				for (int k = 0; k < X - 1; k++) {
+					if (++j < N && h == map[i][j]) {
+						hCnt++;
+						successCnt++;
+					} else {
+						successCnt--;
+						break;
+					}
+				}
+				hCnt = 0;
+			}
+		}
+		if (successCnt == N) {
+			ans++;
+		}
+	}
+}
