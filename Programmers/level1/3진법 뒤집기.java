@@ -11,7 +11,7 @@ class Solution {
         sb.reverse();
         
 
-        // 3ㅈㅣㄴ
+        // 3진법을 다시 10진법으로 변환
         char[] sbToChar = sb.toString().toCharArray();
         for (int i = 0; i < sbToChar.length; i++) {
             answer += (Math.pow(3, i) * (sbToChar[i] - '0'));
