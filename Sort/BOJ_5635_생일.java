@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.*;
 
+
 public class BOJ_5635_생일 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
