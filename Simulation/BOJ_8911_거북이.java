@@ -23,15 +23,40 @@ public class BOJ_8911_거북이 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
         for (int t = 0; t < T; t++) {
+            int curDir = 0; // 거북이가 바라보는 방향
+            int curX = 0, curY = 0; // 현재 좌표
+            int maxX = 0, minX = 0, maxY = 0, minY = 0;
             char[] controlProgram = br.readLine().toCharArray();
             for (int i = 0; i < controlProgram.length; i++) {
                 if (controlProgram[i] == 'F' || controlProgram[i] == 'B') {
                     // 이동
+                    if (controlProgram[i] == 'F') {
+                        curX += dx[curDir];
+                        curY += dy[curDir];
+                    } else {    // B
+                        curX -= dx[curDir];
+                        curY -= dy[curDir];
+                    }
+
+                    // 최대 좌표 비교
+                    if (curX > maxX) maxX = curX;
+                    if (curY > maxY) maxY = curY;
+
+                    // 최소 좌표 비교
+                    if (curX < minX) minX = curX;
+                    if (curY < minY) minY = curY;
 
                 } else {    // L or R
                     // 회전
+                    if (controlProgram[i] == 'L') {
+                        curDir = (curDir + 5) % 4;
+                    } else {    // R
+                        curDir = (curDir + 3) % 4;
+                    }
                 }
+
             }
+            System.out.println((maxX - minX) * (maxY - minY));
         }
     }
 }
